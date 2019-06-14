@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>bugasura-perf-sdk</title>
+	<link rel="stylesheet" href="css/custom.css">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+</head>
+<body>
+	<div class="main-body">
+		<div class="container header-div">
+			<h1>Bugasura Performance SDK</h1>
+			<hr>
+		</div>
+		<div class="container">
+			<h3>Integration</h3>
+			<p>Appachhi SDK is build with two binaries (SDK and Plugin)</p>
+		</div>
+		<div class="container">
+			<h3>SDK</h3>
+			<p class="highlight-text">It does much of the tasks like monitoring various metric and saving the information to the database. You can find details here. In order to integrate the SDK to an existing project, you can add the <span>sdk.aar</span> into the <span> src/main/libs/</span> directory in your <span>app</span>  module.</p>
+			<p class="highlight-text">Also update the project level <span>build.gradle</span> file as follows.</p>
+		</div>
+		<div class="container">
+<pre><code>
+	<span>allprojects</span> {
+	    repositories {
+	        google()
+	        jcenter()
+	        flatDir {
+	            dirs 'src/main/libs'
+	        }
+	    }
+	}
+	</code>
+</pre>
+		</div>
+		<div class="container">
+			<h3>Plugin</h3>
+			<p class="highlight-text">In order to add integrate the plugin, you need to add the <span>plugin.jar</span> file in top level <span>libs</span> directory.If folder doesn't exist,then create one.</p>
+			<p class="highlight-text">Now in you project level <span>build.gradle</span>  add the following lines.</p>
+		</div>
+		<div class="container">
+	<pre>
+	<code>
+	<span>buildscript</span>{
+	    dependencies {
+	        classpath files("libs/plugin.jar")
+	    }
+	}
+	</code></pre>
+		<p class="highlight-text">Update the app level <span>build.gradle</span> as follow</p>
+		</div>
+		<div class="container">
+	<pre>
+	<code>
+	apply <span class="code-head">plugin:</span> <span class="code-blue">'com.appachhi.plugin'</span>
+	</code></pre>
+		</div>
+		<div class="container other-info">
+			<h3>Other information</h3>
+			<ul>
+				<li>SDK will automatically be initialized as soon as the app launches and it will start collecting data</li>
+				<li>In order to gather information regarding method trace, you can annotate a method as show below</li>
+		<pre>
+	<code>
+	<span class="code-red">@Trace</span>(<span class="code-head">name</span> = <span class="code-blue">"Your Trace Name"</span>)
+	    <span class="code-red">public void</span> foo(){
+	    // Any code
+    	}</code>
+	</pre>
+			<li>As soon as the app launches, you will be asked to grant permission to show an overlay. If you allow then an overlay will be show where you can see the captured data</li>
+			<li>All the data are currently saved in database too</li>
+		</ul>
+		</div>
+	</div>
+</body>
+</html>
